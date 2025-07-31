@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Preview from "./pages/Preview";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancelled from "./pages/PaymentCancelled";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const App = () => (
             <Route path="/preview" element={<Preview />} />
             <Route path="/pricing" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/payment-cancelled" element={<PaymentCancelled />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />

@@ -4,130 +4,86 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Check, Star, Zap, Crown } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import PaymentModal from "./PaymentModal";
 import { useToast } from "@/hooks/use-toast";
 
 const packages = [
   {
-    id: "startup",
-    name: "Startup",
-    price: 49,
-    originalPrice: 149,
+    id: "starter",
+    name: "Starter Package",
+    price: 89,
+    originalPrice: 299,
     description: "Perfect for new businesses",
     badge: null,
     features: [
-      "8 Professional Ad Cards",
-      "Free Preview Access",
-      "Basic Website Template",
+      "5 Professional Ad Cards",
+      "High-Resolution Downloads",
       "Commercial License",
-      "Email Support"
+      "Email Support",
+      "24-Hour Delivery"
     ],
     buttonText: "Get Started",
     buttonVariant: "outline" as const
   },
   {
-    id: "enterprise", 
-    name: "Enterprise",
-    price: 97,
-    originalPrice: 297,
+    id: "professional", 
+    name: "Professional Package",
+    price: 197,
+    originalPrice: 497,
     description: "Most popular choice",
     badge: { text: "MOST POPULAR", color: "primary" },
     features: [
-      "16 Premium Ad Cards",
-      "Free Preview Access", 
-      "Pro Website Template",
-      "Priority Email Support",
+      "15 Professional Ad Cards",
+      "Multiple Format Options",
+      "High-Resolution Downloads", 
       "Commercial License",
-      "A/B Testing Guide"
+      "Priority Support",
+      "24-Hour Delivery"
     ],
-    buttonText: "Choose Enterprise",
+    buttonText: "Choose Professional",
     buttonVariant: "default" as const
   },
   {
-    id: "gold",
-    name: "Gold Pro",
-    price: 197,
-    originalPrice: 597,
+    id: "enterprise",
+    name: "Enterprise Package",
+    price: 497,
+    originalPrice: 997,
     description: "Complete marketing solution",
     badge: { text: "BEST VALUE", color: "success" },
     features: [
-      "48 Premium Ad Cards",
-      "3 Multilingual Text Ads",
-      "2 Holiday Season Ads",
-      "Custom Domain (1 Year)",
-      "Professional Hosting",
-      "Priority Phone Support",
-      "Analytics Dashboard",
-      "White-label Rights"
+      "50 Professional Ad Cards",
+      "Custom Landing Page",
+      "Multiple Format Options",
+      "High-Resolution Downloads",
+      "Commercial License",
+      "VIP Support",
+      "Custom Branding Options",
+      "24-Hour Delivery"
     ],
-    buttonText: "Go Premium",
-    buttonVariant: "default" as const
-  },
-  {
-    id: "platinum",
-    name: "Platinum Elite",
-    price: 497,
-    originalPrice: 1497,
-    description: "Ultimate business package",
-    badge: { text: "ULTIMATE", color: "warning" },
-    features: [
-      "60 Premium Ad Cards",
-      "5 Multilingual Text Ads", 
-      "5 Holiday Season Ads",
-      "Custom Domain (2 Years)",
-      "Premium Hosting",
-      "Dedicated Account Manager",
-      "Advanced Analytics Pro",
-      "White-label Rights",
-      "Custom Branding",
-      "API Access"
-    ],
-    buttonText: "Get Ultimate",
+    buttonText: "Go Enterprise",
     buttonVariant: "default" as const
   }
 ];
 
 const PackageComparison = () => {
+  const { user } = useAuth();
   const { toast } = useToast();
-  const [email, setEmail] = useState('');
+  const [selectedPackage, setSelectedPackage] = useState<'starter' | 'professional' | 'enterprise' | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-  const handlePurchase = async (pkg: typeof packages[0]) => {
-    if (!email) {
+  const handlePurchase = (pkg: typeof packages[0]) => {
+    if (!user) {
       toast({
-        title: "Email Required",
-        description: "Please enter your email address to continue.",
+        title: "Authentication Required",
+        description: "Please sign in to purchase a package.",
         variant: "destructive",
       });
       return;
     }
 
-    try {
-      // Track purchase intent in database
-      await supabase.from('purchases').insert({
-        ad_id: parseInt(pkg.id, 10),
-        price: pkg.price,
-      });
-
-      // Track lead
-      await supabase.from('leads').upsert({
-        email,
-        status: 'purchase_intent',
-        business_type: pkg.name,
-      });
-
-      // Success notification
-      toast({
-        title: "Order Received!",
-        description: `We'll contact ${email} within 24 hours to deliver your ${pkg.name} package.`,
-      });
-    } catch (error) {
-      console.error('Purchase error:', error);
-      toast({
-        title: "Purchase Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    }
+    setSelectedPackage(pkg.id as 'starter' | 'professional' | 'enterprise');
+    setShowPaymentModal(true);
   };
 
   return (
@@ -149,7 +105,7 @@ const PackageComparison = () => {
       </div>
 
       {/* Enhanced Package Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12 stagger-animation">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12 stagger-animation">
         {packages.map((pkg, index) => (
           <Card 
             key={pkg.id}
@@ -177,7 +133,6 @@ const PackageComparison = () => {
                 {index === 0 && <Star className="w-6 h-6 text-muted-foreground mr-2" />}
                 {index === 1 && <Zap className="w-6 h-6 text-primary mr-2" />}
                 {index === 2 && <Crown className="w-6 h-6 text-success mr-2" />}
-                {index === 3 && <Crown className="w-6 h-6 text-warning mr-2" />}
                 <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
               </div>
               
@@ -204,17 +159,6 @@ const PackageComparison = () => {
                   </li>
                 ))}
               </ul>
-
-              {/* Email Input */}
-              <div className="mb-4">
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your business email"
-                  className="w-full"
-                />
-              </div>
 
               {/* CTA Button */}
               <Button
@@ -248,6 +192,13 @@ const PackageComparison = () => {
           </Button>
         </div>
       </div>
+
+      {/* Payment Modal */}
+      <PaymentModal 
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        selectedPackage={selectedPackage || 'professional'}
+      />
     </section>
   );
 };
