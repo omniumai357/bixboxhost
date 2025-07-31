@@ -4,13 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import AdCard from "./AdCard";
+import { useToast } from "@/hooks/use-toast";
 
-// Mock data for demonstration
+// Real ad images
+import handymanImage from "@/assets/ad-handyman.jpg";
+import constructionImage from "@/assets/ad-construction.jpg";
+import cleaningImage from "@/assets/ad-cleaning.jpg";
+import landscapingImage from "@/assets/ad-landscaping.jpg";
+import plumbingImage from "@/assets/ad-plumbing.jpg";
+import electricalImage from "@/assets/ad-electrical.jpg";
+
+// Real ad data with professional designs
 const mockAds = [
   {
     id: "1",
     title: "Professional Handyman Services",
-    image: "/placeholder.svg",
+    image: handymanImage,
     category: "Handyman",
     price: 49,
     views: 1250,
@@ -20,7 +29,7 @@ const mockAds = [
   {
     id: "2", 
     title: "Premium Construction Company",
-    image: "/placeholder.svg",
+    image: constructionImage,
     category: "Construction",
     price: 97,
     views: 2100,
@@ -30,7 +39,7 @@ const mockAds = [
   {
     id: "3",
     title: "House Cleaning Experts",
-    image: "/placeholder.svg", 
+    image: cleaningImage, 
     category: "Cleaning",
     price: 49,
     views: 890,
@@ -40,7 +49,7 @@ const mockAds = [
   {
     id: "4",
     title: "Landscaping & Garden Care",
-    image: "/placeholder.svg",
+    image: landscapingImage,
     category: "Landscaping", 
     price: 79,
     views: 1450,
@@ -50,7 +59,7 @@ const mockAds = [
   {
     id: "5",
     title: "Plumbing Emergency Services",
-    image: "/placeholder.svg",
+    image: plumbingImage,
     category: "Plumbing",
     price: 69,
     views: 1680,
@@ -60,7 +69,7 @@ const mockAds = [
   {
     id: "6",
     title: "Electrical Installation Pro",
-    image: "/placeholder.svg",
+    image: electricalImage,
     category: "Electrical",
     price: 89,
     views: 1920,
@@ -72,6 +81,7 @@ const mockAds = [
 const categories = ["All", "Handyman", "Construction", "Cleaning", "Landscaping", "Plumbing", "Electrical"];
 
 const AdGallery = () => {
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -114,8 +124,17 @@ const AdGallery = () => {
   };
 
   const handlePreview = (id: string) => {
-    console.log("Preview ad:", id);
-    // TODO: Implement preview modal
+    // Track preview interaction
+    const ad = mockAds.find(a => a.id === id);
+    if (ad) {
+      // Store in localStorage for preview page
+      localStorage.setItem('previewAd', JSON.stringify(ad));
+      toast({
+        title: "Preview Loading",
+        description: `Opening preview for ${ad.title}...`,
+      });
+      window.location.href = '/preview';
+    }
   };
 
   return (

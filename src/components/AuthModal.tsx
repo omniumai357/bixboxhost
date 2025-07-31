@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, Zap } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface AuthModalProps {
 }
 
 const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
+  const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,7 +42,11 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
 
         if (signUpError) {
           console.error('Sign up error:', signUpError);
-          alert('Failed to create account: ' + signUpError.message);
+          toast({
+            title: "Account Creation Failed",
+            description: signUpError.message,
+            variant: "destructive",
+          });
           setIsSubmitting(false);
           return;
         }
@@ -60,7 +66,11 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
       window.location.href = '/preview';
     } catch (error) {
       console.error('Auth error:', error);
-      alert('An error occurred. Please try again.');
+      toast({
+        title: "Authentication Error",
+        description: "An error occurred. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

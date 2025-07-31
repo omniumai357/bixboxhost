@@ -69,19 +69,19 @@ const HeroSection = () => {
           No design skills needed. Start converting customers in minutes.
         </p>
 
-        {/* Social Proof */}
+        {/* Trust Indicators - Realistic */}
         <div className="flex items-center justify-center gap-8 mb-12">
           <div className="text-center">
-            <div className="text-3xl font-bold text-white">500+</div>
-            <div className="text-white/80">Businesses Served</div>
+            <div className="text-3xl font-bold text-white">Pre-Launch</div>
+            <div className="text-white/80">Early Access</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-white">98%</div>
-            <div className="text-white/80">Satisfaction Rate</div>
+            <div className="text-3xl font-bold text-white">Pro</div>
+            <div className="text-white/80">Quality Design</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-white">$2M+</div>
-            <div className="text-white/80">Revenue Generated</div>
+            <div className="text-3xl font-bold text-white">24h</div>
+            <div className="text-white/80">Quick Delivery</div>
           </div>
         </div>
 

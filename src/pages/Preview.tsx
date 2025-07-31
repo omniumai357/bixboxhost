@@ -7,8 +7,16 @@ import heroImage from "@/assets/hero-business-ads.jpg";
 
 const Preview = () => {
   const [businessName, setBusinessName] = useState('Your Business');
+  const [previewAd, setPreviewAd] = useState<any>(null);
 
   useEffect(() => {
+    // Check if specific ad was previewed
+    const storedAd = localStorage.getItem('previewAd');
+    if (storedAd) {
+      const ad = JSON.parse(storedAd);
+      setPreviewAd(ad);
+    }
+
     // Extract business name from email or use default
     const email = localStorage.getItem('userEmail') || 'user@business.com';
     const domain = email.split('@')[1];
@@ -20,7 +28,7 @@ const Preview = () => {
       try {
         await supabase.from('previews').insert({
           email: email,
-          ad_id: 1,
+          ad_id: previewAd?.id || 1,
           converted: false,
         });
       } catch (error) {
@@ -61,14 +69,16 @@ const Preview = () => {
             <CardContent className="p-0">
               <div className="relative">
                 <img
-                  src={heroImage}
+                  src={previewAd?.image || heroImage}
                   alt="Custom Ad Preview"
                   className="w-full h-64 md:h-80 object-cover transition-transform duration-500 hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                   <div className="p-6 text-white">
                     <h3 className="text-2xl font-bold mb-2">{businessName}</h3>
-                    <p className="text-lg opacity-90">Professional Services That Deliver Results</p>
+                    <p className="text-lg opacity-90">
+                      {previewAd?.title || "Professional Services That Deliver Results"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -82,6 +92,11 @@ const Preview = () => {
                     <Sparkles className="w-4 h-4 animate-pulse" />
                     <span>AI-Optimized</span>
                   </div>
+                  {previewAd && (
+                    <div className="flex items-center gap-1">
+                      <span className="text-primary font-semibold">${previewAd.price}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -94,8 +109,8 @@ const Preview = () => {
               <div className="text-muted-foreground">Premium Ad Variants</div>
             </Card>
             <Card className="enhanced-glass text-center p-6 hover:scale-105 transition-all duration-300">
-              <div className="text-3xl font-bold text-success mb-2 animate-pulse">98%</div>
-              <div className="text-muted-foreground">Conversion Rate</div>
+              <div className="text-3xl font-bold text-success mb-2 animate-pulse">Pro</div>
+              <div className="text-muted-foreground">Quality Design</div>
             </Card>
             <Card className="enhanced-glass text-center p-6 hover:scale-105 transition-all duration-300">
               <div className="text-3xl font-bold text-warning mb-2 animate-pulse">24h</div>

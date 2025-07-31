@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Check, Star, Zap, Crown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const packages = [
   {
@@ -87,11 +88,16 @@ const packages = [
 ];
 
 const PackageComparison = () => {
+  const { toast } = useToast();
   const [email, setEmail] = useState('');
 
   const handlePurchase = async (pkg: typeof packages[0]) => {
     if (!email) {
-      alert('Please enter your email address');
+      toast({
+        title: "Email Required",
+        description: "Please enter your email address to continue.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -109,11 +115,18 @@ const PackageComparison = () => {
         business_type: pkg.name,
       });
 
-      // Manual fulfillment notification
-      alert(`Order received! We'll contact ${email} within 24 hours to deliver your ${pkg.name} package.`);
+      // Success notification
+      toast({
+        title: "Order Received!",
+        description: `We'll contact ${email} within 24 hours to deliver your ${pkg.name} package.`,
+      });
     } catch (error) {
       console.error('Purchase error:', error);
-      alert('Something went wrong. Please try again.');
+      toast({
+        title: "Purchase Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
