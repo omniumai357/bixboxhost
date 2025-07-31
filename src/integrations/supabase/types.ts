@@ -14,7 +14,110 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      leads: {
+        Row: {
+          ad_id: number | null
+          business_type: string | null
+          created_at: string | null
+          email: string
+          id: string
+          status: string | null
+        }
+        Insert: {
+          ad_id?: number | null
+          business_type?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          status?: string | null
+        }
+        Update: {
+          ad_id?: number | null
+          business_type?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
+      previews: {
+        Row: {
+          ad_id: number | null
+          converted: boolean | null
+          email: string
+          id: string
+          viewed_at: string | null
+        }
+        Insert: {
+          ad_id?: number | null
+          converted?: boolean | null
+          email: string
+          id?: string
+          viewed_at?: string | null
+        }
+        Update: {
+          ad_id?: number | null
+          converted?: boolean | null
+          email?: string
+          id?: string
+          viewed_at?: string | null
+        }
+        Relationships: []
+      }
+      purchases: {
+        Row: {
+          ad_id: number | null
+          created_at: string | null
+          id: string
+          price: number | null
+          user_id: string | null
+        }
+        Insert: {
+          ad_id?: number | null
+          created_at?: string | null
+          id?: string
+          price?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          ad_id?: number | null
+          created_at?: string | null
+          id?: string
+          price?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchases_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          is_premium: boolean | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          is_premium?: boolean | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          is_premium?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
