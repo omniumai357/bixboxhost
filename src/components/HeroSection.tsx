@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, Zap, Star } from "lucide-react";
 import heroImage from "@/assets/hero-business-ads.jpg";
+import AuthModal from "./AuthModal";
 
 const HeroSection = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 4,
     hours: 12,
@@ -106,14 +108,16 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+            onClick={() => setIsModalOpen(true)}
           >
-            Browse Ad Gallery
+            Get My Custom Ads
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <Button 
             variant="outline" 
             size="lg"
             className="glass-card border-white/30 text-white hover:bg-white/20 font-semibold px-8 py-4 text-lg rounded-full"
+            onClick={() => window.location.href = '#packages'}
           >
             View Packages
           </Button>
@@ -135,6 +139,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+      
+      <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

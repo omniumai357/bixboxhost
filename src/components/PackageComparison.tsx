@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { Check, Star, Zap, Crown } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const packages = [
   {
@@ -84,9 +87,34 @@ const packages = [
 ];
 
 const PackageComparison = () => {
-  const handlePackageSelect = (packageId: string) => {
-    console.log("Selected package:", packageId);
-    // TODO: Navigate to checkout
+  const [email, setEmail] = useState('');
+
+  const handlePurchase = async (pkg: typeof packages[0]) => {
+    if (!email) {
+      alert('Please enter your email address');
+      return;
+    }
+
+    try {
+      // Track purchase intent in database
+      await supabase.from('purchases').insert({
+        ad_id: parseInt(pkg.id, 10),
+        price: pkg.price,
+      });
+
+      // Track lead
+      await supabase.from('leads').upsert({
+        email,
+        status: 'purchase_intent',
+        business_type: pkg.name,
+      });
+
+      // Manual fulfillment notification
+      alert(`Order received! We'll contact ${email} within 24 hours to deliver your ${pkg.name} package.`);
+    } catch (error) {
+      console.error('Purchase error:', error);
+      alert('Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -164,6 +192,17 @@ const PackageComparison = () => {
                 ))}
               </ul>
 
+              {/* Email Input */}
+              <div className="mb-4">
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your business email"
+                  className="w-full"
+                />
+              </div>
+
               {/* CTA Button */}
               <Button
                 variant={pkg.buttonVariant}
@@ -172,7 +211,7 @@ const PackageComparison = () => {
                     ? "bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white shadow-lg hover:shadow-primary-glow" 
                     : ""
                 }`}
-                onClick={() => handlePackageSelect(pkg.id)}
+                onClick={() => handlePurchase(pkg)}
               >
                 {pkg.buttonText}
               </Button>
