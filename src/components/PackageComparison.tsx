@@ -11,57 +11,58 @@ import { useToast } from "@/hooks/use-toast";
 const packages = [
   {
     id: "starter",
-    name: "Starter Package",
-    price: 89,
-    originalPrice: 299,
-    description: "Perfect for new businesses",
+    name: "Starter",
+    price: 89.99,
+    originalPrice: 179,
+    description: "Perfect for small businesses just getting started",
     badge: null,
     features: [
-      "5 Professional Ad Cards",
-      "High-Resolution Downloads",
+      "1 Premium Ad Copy Clone",
+      "Business Customization", 
+      "48-Hour Delivery",
       "Commercial License",
-      "Email Support",
-      "24-Hour Delivery"
+      "Email Support"
     ],
     buttonText: "Get Started",
     buttonVariant: "outline" as const
   },
   {
     id: "professional", 
-    name: "Professional Package",
+    name: "Business",
     price: 197,
-    originalPrice: 497,
-    description: "Most popular choice",
+    originalPrice: 397,
+    description: "Most popular choice for growing businesses",
     badge: { text: "MOST POPULAR", color: "primary" },
     features: [
-      "15 Professional Ad Cards",
-      "Multiple Format Options",
-      "High-Resolution Downloads", 
+      "5 Premium Ad Copy Clones",
+      "AI-Powered Business Analysis",
+      "24-Hour Priority Delivery",
+      "Advanced Design Options",
+      "Priority Support", 
       "Commercial License",
-      "Priority Support",
-      "24-Hour Delivery"
+      "Social Media Optimization"
     ],
-    buttonText: "Choose Professional",
+    buttonText: "Launch Now", 
     buttonVariant: "default" as const
   },
   {
     id: "enterprise",
-    name: "Enterprise Package",
+    name: "Enterprise", 
     price: 497,
     originalPrice: 997,
-    description: "Complete marketing solution",
+    description: "Complete solution for established businesses",
     badge: { text: "BEST VALUE", color: "success" },
     features: [
-      "50 Professional Ad Cards",
-      "Custom Landing Page",
-      "Multiple Format Options",
-      "High-Resolution Downloads",
+      "15 Premium Ad Copy Clones",
+      "White-Label Branding Rights",
+      "Dedicated Account Manager",
+      "Advanced Analytics",
+      "12-hour Delivery", 
       "Commercial License",
-      "VIP Support",
-      "Custom Branding Options",
-      "24-Hour Delivery"
+      "Unlimited Revisions",
+      "Multi-platform Optimization"
     ],
-    buttonText: "Go Enterprise",
+    buttonText: "Level Up",
     buttonVariant: "default" as const
   }
 ];
@@ -91,7 +92,7 @@ const PackageComparison = () => {
       {/* Section Header */}
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-          Choose Your Package
+          Launch Ads That Print Money
         </h2>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
           Select the perfect package for your business needs. All packages include commercial licenses and instant download.
@@ -179,16 +180,17 @@ const PackageComparison = () => {
 
       {/* Enhanced Bottom CTA */}
       <div className="text-center enhanced-glass p-8 rounded-2xl animate-blur-fade">
-        <h3 className="text-2xl font-bold mb-4">Not sure which package is right for you?</h3>
+        <h3 className="text-2xl font-bold mb-4">Ready to Launch Ads That Print Money?</h3>
         <p className="text-muted-foreground mb-6">
-          Try our free preview to see the quality of our ad cards, or contact our team for personalized recommendations.
+          Get your custom ad copy that converts browsers into buyers. Start printing money today.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center stagger-animation">
-          <Button variant="outline" size="lg" className="ripple-button transition-all duration-300 hover:scale-105">
-            Free Preview
-          </Button>
-          <Button size="lg" className="bg-gradient-to-r from-primary to-success text-white ripple-button transition-all duration-300 hover:scale-105 animate-gradient-shift">
-            Contact Sales
+          <Button 
+            size="lg"
+            className="bg-gradient-to-r from-[#FF006E] to-[#FB5607] hover:from-[#FF006E]/90 hover:to-[#FB5607]/90 text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105 animate-gradient-shift"
+            onClick={() => window.location.href = '/preview'}
+          >
+            Get a Free Quote →
           </Button>
         </div>
       </div>
