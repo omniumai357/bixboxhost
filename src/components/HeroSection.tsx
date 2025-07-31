@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Zap, Star } from "lucide-react";
+import { ArrowRight, Clock, Zap, Star, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/hero-business-ads.jpg";
 import AuthModal from "./AuthModal";
 
 const HeroSection = () => {
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 4,
@@ -107,14 +110,26 @@ const HeroSection = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105 ripple-button animate-gradient-shift"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Get My Custom Ads
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
+          {user ? (
+            <Link to="/dashboard">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105 ripple-button animate-gradient-shift"
+              >
+                <User className="mr-2 w-5 h-5" />
+                My Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105 ripple-button animate-gradient-shift"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Get My Custom Ads
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          )}
           <Button 
             variant="outline" 
             size="lg"
@@ -124,6 +139,18 @@ const HeroSection = () => {
             View Packages
           </Button>
         </div>
+
+        {/* Auth Link */}
+        {!user && (
+          <div className="mt-6">
+            <Link 
+              to="/auth" 
+              className="text-white/80 hover:text-white underline transition-colors"
+            >
+              Already have an account? Sign in
+            </Link>
+          </div>
+        )}
 
         {/* Trust Indicators */}
         <div className="mt-12 flex items-center justify-center gap-8 text-white/70">
