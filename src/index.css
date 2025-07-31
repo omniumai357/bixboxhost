@@ -285,14 +285,9 @@
       transparent 10deg
     );
     filter: blur(2px);
-    animation: racing-border 4s linear infinite;
     z-index: -1;
   }
 
-  @keyframes racing-border {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
 
   .enhanced-glass:hover {
     backdrop-filter: blur(25px) saturate(200%);
