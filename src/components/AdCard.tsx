@@ -46,7 +46,7 @@ const AdCard = ({
   return (
     <Card 
       className={cn(
-        "group glass-card border-card-border overflow-hidden cursor-pointer transition-all duration-300",
+        "group enhanced-glass border-card-border overflow-hidden cursor-pointer transition-all duration-300 ripple-button",
         isHovered && "transform scale-105 shadow-elegant"
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -106,7 +106,7 @@ const AdCard = ({
               <Button
                 size="sm"
                 variant="outline"
-                className="glass text-white border-white/30 hover:bg-white/20"
+                className="glass text-white border-white/30 hover:bg-white/20 ripple-button transition-all duration-300 hover:scale-105"
                 onClick={(e) => {
                   e.stopPropagation();
                   handlePreviewClick();
@@ -117,7 +117,7 @@ const AdCard = ({
               </Button>
               <Button
                 size="sm"
-                className="bg-primary hover:bg-primary-hover text-primary-foreground"
+                className="bg-primary hover:bg-primary-hover text-primary-foreground ripple-button transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-primary-glow"
                 onClick={(e) => e.stopPropagation()}
               >
                 <Download className="w-4 h-4 mr-2" />

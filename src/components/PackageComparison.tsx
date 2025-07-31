@@ -128,19 +128,19 @@ const PackageComparison = () => {
           Select the perfect package for your business needs. All packages include commercial licenses and instant download.
         </p>
         
-        {/* Savings Banner */}
-        <div className="inline-flex items-center gap-2 glass-card px-6 py-3 rounded-full text-success font-semibold">
-          <Zap className="w-5 h-5" />
+        {/* Enhanced Savings Banner */}
+        <div className="inline-flex items-center gap-2 enhanced-glass px-6 py-3 rounded-full text-success font-semibold animate-scale-bounce">
+          <Zap className="w-5 h-5 animate-pulse" />
           Pre-Launch Special: Save up to 70% - Limited Time!
         </div>
       </div>
 
-      {/* Package Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
+      {/* Enhanced Package Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-12 stagger-animation">
         {packages.map((pkg, index) => (
           <Card 
             key={pkg.id}
-            className={`glass-card relative transition-all duration-300 hover:scale-105 ${
+            className={`enhanced-glass relative transition-all duration-300 hover:scale-105 hover:shadow-elegant ripple-button ${
               pkg.badge?.color === "primary" ? "ring-2 ring-primary ring-opacity-50" : ""
             }`}
           >
@@ -206,10 +206,10 @@ const PackageComparison = () => {
               {/* CTA Button */}
               <Button
                 variant={pkg.buttonVariant}
-                className={`w-full font-semibold py-3 ${
+                className={`w-full font-semibold py-3 ripple-button transition-all duration-300 hover:scale-105 ${
                   pkg.buttonVariant === "default" 
-                    ? "bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white shadow-lg hover:shadow-primary-glow" 
-                    : ""
+                    ? "bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white shadow-lg hover:shadow-primary-glow animate-gradient-shift" 
+                    : "hover:shadow-md"
                 }`}
                 onClick={() => handlePurchase(pkg)}
               >
@@ -220,17 +220,17 @@ const PackageComparison = () => {
         ))}
       </div>
 
-      {/* Bottom CTA */}
-      <div className="text-center glass-card p-8 rounded-2xl">
+      {/* Enhanced Bottom CTA */}
+      <div className="text-center enhanced-glass p-8 rounded-2xl animate-blur-fade">
         <h3 className="text-2xl font-bold mb-4">Not sure which package is right for you?</h3>
         <p className="text-muted-foreground mb-6">
           Try our free preview to see the quality of our ad cards, or contact our team for personalized recommendations.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="outline" size="lg">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center stagger-animation">
+          <Button variant="outline" size="lg" className="ripple-button transition-all duration-300 hover:scale-105">
             Free Preview
           </Button>
-          <Button size="lg" className="bg-gradient-to-r from-primary to-success text-white">
+          <Button size="lg" className="bg-gradient-to-r from-primary to-success text-white ripple-button transition-all duration-300 hover:scale-105 animate-gradient-shift">
             Contact Sales
           </Button>
         </div>

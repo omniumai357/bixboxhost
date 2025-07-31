@@ -37,14 +37,14 @@ const Preview = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {/* Enhanced Header */}
       <div className="bg-gradient-to-r from-primary/10 to-success/10 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 glass-card px-6 py-2 rounded-full mb-6">
-            <Sparkles className="w-5 h-5 text-primary" />
+        <div className="container mx-auto px-4 text-center stagger-animation">
+          <div className="inline-flex items-center gap-2 enhanced-glass px-6 py-2 rounded-full mb-6 animate-scale-bounce">
+            <Sparkles className="w-5 h-5 text-primary animate-pulse" />
             <span className="font-semibold">Custom Preview Generated</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4 animate-gradient-shift">
             Your Custom Ad Preview
           </h1>
           <p className="text-xl text-muted-foreground">
@@ -55,15 +55,15 @@ const Preview = () => {
 
       {/* Preview Content */}
       <div className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          {/* Sample Ad Card */}
-          <Card className="glass-card mb-8 overflow-hidden">
+        <div className="max-w-4xl mx-auto stagger-animation">
+          {/* Enhanced Sample Ad Card */}
+          <Card className="enhanced-glass mb-8 overflow-hidden hover:scale-105 transition-all duration-500">
             <CardContent className="p-0">
               <div className="relative">
                 <img
                   src={heroImage}
                   alt="Custom Ad Preview"
-                  className="w-full h-64 md:h-80 object-cover"
+                  className="w-full h-64 md:h-80 object-cover transition-transform duration-500 hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                   <div className="p-6 text-white">
@@ -79,7 +79,7 @@ const Preview = () => {
                     <span>High-Converting Design</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Sparkles className="w-4 h-4" />
+                    <Sparkles className="w-4 h-4 animate-pulse" />
                     <span>AI-Optimized</span>
                   </div>
                 </div>
@@ -87,39 +87,39 @@ const Preview = () => {
             </CardContent>
           </Card>
 
-          {/* Features Preview */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Card className="glass-card text-center p-6">
-              <div className="text-3xl font-bold text-primary mb-2">16+</div>
+          {/* Enhanced Features Preview */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12 stagger-animation">
+            <Card className="enhanced-glass text-center p-6 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-primary mb-2 animate-pulse">16+</div>
               <div className="text-muted-foreground">Premium Ad Variants</div>
             </Card>
-            <Card className="glass-card text-center p-6">
-              <div className="text-3xl font-bold text-success mb-2">98%</div>
+            <Card className="enhanced-glass text-center p-6 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-success mb-2 animate-pulse">98%</div>
               <div className="text-muted-foreground">Conversion Rate</div>
             </Card>
-            <Card className="glass-card text-center p-6">
-              <div className="text-3xl font-bold text-warning mb-2">24h</div>
+            <Card className="enhanced-glass text-center p-6 hover:scale-105 transition-all duration-300">
+              <div className="text-3xl font-bold text-warning mb-2 animate-pulse">24h</div>
               <div className="text-muted-foreground">Delivery Time</div>
             </Card>
           </div>
 
-          {/* Upgrade CTA */}
-          <Card className="glass-card text-center p-8">
-            <h2 className="text-3xl font-bold gradient-text mb-4">Ready to Launch?</h2>
+          {/* Enhanced Upgrade CTA */}
+          <Card className="enhanced-glass text-center p-8 animate-blur-fade">
+            <h2 className="text-3xl font-bold gradient-text mb-4 animate-gradient-shift">Ready to Launch?</h2>
             <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
               This is just a sample. Upgrade now to unlock your complete ad suite with 16+ variants, 
               custom branding, and professional templates designed specifically for {businessName}.
             </p>
             
-            <div className="flex items-center justify-center gap-2 mb-6 text-success font-semibold">
-              <Sparkles className="w-5 h-5" />
+            <div className="flex items-center justify-center gap-2 mb-6 text-success font-semibold animate-scale-bounce">
+              <Sparkles className="w-5 h-5 animate-pulse" />
               <span>70% OFF - Pre-Launch Special</span>
             </div>
             
             <Button
               onClick={handleUpgrade}
               size="lg"
-              className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105 ripple-button animate-gradient-shift"
             >
               Upgrade Now - Get Full Suite
               <ArrowRight className="ml-2 w-5 h-5" />

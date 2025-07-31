@@ -68,15 +68,15 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md enhanced-glass animate-scale-bounce">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold gradient-text flex items-center gap-2">
-            <Zap className="w-6 h-6 text-primary" />
+            <Zap className="w-6 h-6 text-primary animate-pulse" />
             Get My Custom Ads
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
+        <div className="space-y-4 stagger-animation">
           <p className="text-muted-foreground">
             Instant access in 60 seconds. See exactly what your business ads will look like.
           </p>
@@ -90,6 +90,7 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.business@email.com"
+                className="transition-all duration-300 focus:scale-105"
                 required
               />
             </div>
@@ -102,13 +103,14 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Leave blank for auto-generated"
+                className="transition-all duration-300 focus:scale-105"
               />
             </div>
             
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold py-3"
+              className="w-full bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold py-3 ripple-button transition-all duration-300 hover:scale-105 animate-gradient-shift"
             >
               {isSubmitting ? (
                 'Processing...'

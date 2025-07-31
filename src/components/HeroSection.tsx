@@ -42,18 +42,20 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-purple-600/70 to-success/80"></div>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 glass rounded-full animate-bounce delay-100"></div>
-      <div className="absolute bottom-32 right-16 w-16 h-16 glass rounded-full animate-bounce delay-300"></div>
-      <div className="absolute top-1/3 right-20 w-12 h-12 glass rounded-full animate-bounce delay-500"></div>
+      {/* Enhanced Floating Elements */}
+      <div className="absolute top-20 left-10 w-20 h-20 enhanced-glass rounded-full float-animation"></div>
+      <div className="absolute bottom-32 right-16 w-16 h-16 enhanced-glass rounded-full float-animation" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/3 right-20 w-12 h-12 enhanced-glass rounded-full float-animation" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-1/2 left-1/4 w-8 h-8 enhanced-glass rounded-full float-animation" style={{ animationDelay: '0.5s' }}></div>
+      <div className="absolute bottom-1/4 left-1/3 w-14 h-14 enhanced-glass rounded-full float-animation" style={{ animationDelay: '1.5s' }}></div>
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto text-center">
-        {/* Pre-Launch Badge */}
-        <div className="inline-flex items-center gap-2 glass-card px-6 py-3 rounded-full mb-8 text-white">
-          <Zap className="w-5 h-5 text-warning" />
+        {/* Enhanced Pre-Launch Badge */}
+        <div className="inline-flex items-center gap-2 enhanced-glass px-6 py-3 rounded-full mb-8 text-white animate-scale-bounce">
+          <Zap className="w-5 h-5 text-warning animate-pulse" />
           <span className="font-semibold">Pre-Launch Special - 70% OFF</span>
-          <Star className="w-5 h-5 text-warning" />
+          <Star className="w-5 h-5 text-warning animate-pulse" />
         </div>
 
         {/* Main Headline */}
@@ -83,16 +85,16 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Countdown Timer */}
-        <div className="glass-card p-8 rounded-2xl mb-8 max-w-2xl mx-auto">
+        {/* Enhanced Countdown Timer */}
+        <div className="enhanced-glass p-8 rounded-2xl mb-8 max-w-2xl mx-auto animate-blur-fade">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Clock className="w-6 h-6 text-warning" />
+            <Clock className="w-6 h-6 text-warning animate-pulse" />
             <span className="text-lg font-semibold text-foreground">Launch Special Ends In:</span>
           </div>
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-center gap-6 stagger-animation">
             {Object.entries(timeLeft).map(([unit, value]) => (
               <div key={unit} className="text-center">
-                <div className="text-4xl font-bold text-primary mb-1">
+                <div className="text-4xl font-bold text-primary mb-1 transition-all duration-500 hover:scale-110">
                   {value.toString().padStart(2, '0')}
                 </div>
                 <div className="text-sm text-muted-foreground uppercase tracking-wide">
@@ -107,7 +109,7 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-primary to-success hover:from-primary-hover hover:to-success text-white font-semibold px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105 ripple-button animate-gradient-shift"
             onClick={() => setIsModalOpen(true)}
           >
             Get My Custom Ads
@@ -116,7 +118,7 @@ const HeroSection = () => {
           <Button 
             variant="outline" 
             size="lg"
-            className="glass-card border-white/30 text-white hover:bg-white/20 font-semibold px-8 py-4 text-lg rounded-full"
+            className="enhanced-glass border-white/30 text-white hover:bg-white/20 font-semibold px-8 py-4 text-lg rounded-full ripple-button transition-all duration-300 hover:scale-105"
             onClick={() => window.location.href = '#packages'}
           >
             View Packages

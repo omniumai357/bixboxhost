@@ -71,6 +71,8 @@
     /* Animation Timing */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 1rem;
 
@@ -190,6 +192,88 @@
   @keyframes gradient-shift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
+  }
+
+  /* Enhanced Animation Keyframes */
+  @keyframes stagger-in {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes blur-fade {
+    0% { opacity: 0; backdrop-filter: blur(0px); }
+    100% { opacity: 1; backdrop-filter: blur(16px); }
+  }
+
+  @keyframes scale-bounce {
+    0% { transform: scale(0.95); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+
+  /* Stagger Animation Classes */
+  .stagger-animation > *:nth-child(1) { animation: stagger-in 0.6s ease-out 0.1s both; }
+  .stagger-animation > *:nth-child(2) { animation: stagger-in 0.6s ease-out 0.2s both; }
+  .stagger-animation > *:nth-child(3) { animation: stagger-in 0.6s ease-out 0.3s both; }
+  .stagger-animation > *:nth-child(4) { animation: stagger-in 0.6s ease-out 0.4s both; }
+  .stagger-animation > *:nth-child(5) { animation: stagger-in 0.6s ease-out 0.5s both; }
+  .stagger-animation > *:nth-child(6) { animation: stagger-in 0.6s ease-out 0.6s both; }
+  .stagger-animation > *:nth-child(7) { animation: stagger-in 0.6s ease-out 0.7s both; }
+  .stagger-animation > *:nth-child(8) { animation: stagger-in 0.6s ease-out 0.8s both; }
+
+  /* Interactive Effects */
+  .ripple-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .ripple-button:active::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .float-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .enhanced-glass {
+    background: var(--gradient-card);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsl(var(--card-border));
+    box-shadow: 
+      var(--shadow-glass),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: var(--transition-smooth);
+  }
+
+  .enhanced-glass:hover {
+    backdrop-filter: blur(25px) saturate(200%);
+    box-shadow: 
+      var(--shadow-elegant),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
   /* Smooth Scroll */
