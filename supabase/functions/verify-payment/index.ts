@@ -87,7 +87,7 @@ serve(async (req) => {
       const { data, error } = await supabaseService
         .from('orders')
         .select('*')
-        .eq('stripe_payment_intent_id', sessionId)
+        .eq('stripe_session_id', sessionId)
         .single();
       
       if (!error) {

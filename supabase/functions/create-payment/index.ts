@@ -165,7 +165,7 @@ serve(async (req) => {
     // Update order with Stripe session ID
     await supabaseService
       .from('orders')
-      .update({ stripe_payment_intent_id: session.id })
+      .update({ stripe_session_id: session.id })
       .eq('id', order.id);
 
     console.log('✅ Stripe session created:', session.id);
